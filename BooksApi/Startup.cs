@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BooksApi.Data;
+using BooksApi.Data.Interfaces;
+using BooksApi.Entities;
+using BooksApi.Logic.Interfaces;
+using BooksApi.Logic.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace BooksApi
 {
@@ -10,7 +17,18 @@ namespace BooksApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(c =>
+                {
+                    c.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    c.LocalizationEnabled = false;
+                });
+
+            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("Books"));
+
+            services.AddTransient<IBooksService, BooksService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IRepository<Book>, Repository<Book>>();
 
             services.AddSwaggerGen(c =>
             {
