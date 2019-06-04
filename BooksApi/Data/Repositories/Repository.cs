@@ -60,5 +60,10 @@ namespace BooksApi.Data
         {
             return await DbSet.CountAsync();
         }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
+        {
+            return await DbSet.AnyAsync(filter);
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace BooksApi.Data.Interfaces
         Task<bool> RemoveAsync(Guid id);
 
         Task<int> CountAsync();
+
+        Task<bool> AnyAsync(Expression<Func<T, bool>> filter);
     }
 }

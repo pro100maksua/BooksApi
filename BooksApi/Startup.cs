@@ -3,6 +3,7 @@ using BooksApi.Data.Interfaces;
 using BooksApi.Entities;
 using BooksApi.Logic.Interfaces;
 using BooksApi.Logic.Services;
+using BooksApi.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,8 @@ namespace BooksApi
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BooksApi"));
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseMvc();

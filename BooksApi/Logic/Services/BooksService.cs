@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BooksApi.Data.Interfaces;
 using BooksApi.Dtos;
 using BooksApi.Entities;
+using BooksApi.Exceptions;
 using BooksApi.Logic.Interfaces;
 using Mapster;
 
@@ -28,7 +29,7 @@ namespace BooksApi.Logic.Services
             var responseDtos = books.Adapt<IEnumerable<Book>, IEnumerable<BookResponseDto>>();
             var count = await _unitOfWork.BooksRepository.CountAsync();
 
-            return new QueryResult {Books = responseDtos, Count = count};
+            return new QueryResult { Books = responseDtos, Count = count };
         }
 
         public async Task<BookResponseDto> GetAsync(Guid bookId)
@@ -41,6 +42,12 @@ namespace BooksApi.Logic.Services
 
         public async Task<BookResponseDto> PostAsync(BookRequestDto requestDto)
         {
+            var bookExists = await _unitOfWork.BooksRepository.AnyAsync(b => b.Title == requestDto.Title);
+            if (bookExists)
+            {
+                throw new DuplicateBookException(requestDto.Title);
+            }
+
             var book = requestDto.Adapt<BookRequestDto, Book>();
 
             await _unitOfWork.BooksRepository.AddAsync(book);
@@ -52,16 +59,23 @@ namespace BooksApi.Logic.Services
 
         public async Task<BookResponseDto> PutAsync(Guid bookId, BookRequestDto requestDto)
         {
-            var productFromDb = await _unitOfWork.BooksRepository.GetAsync(bookId);
-            if (productFromDb == null)
+            var bookExists = await _unitOfWork.BooksRepository
+                .AnyAsync(b => b.Title == requestDto.Title && b.Id != bookId);
+            if (bookExists)
+            {
+                throw new DuplicateBookException(requestDto.Title);
+            }
+
+            var bookFromDb = await _unitOfWork.BooksRepository.GetAsync(bookId);
+            if (bookFromDb == null)
             {
                 return null;
             }
 
-            requestDto.Adapt(productFromDb);
+            requestDto.Adapt(bookFromDb);
             await _unitOfWork.SaveAsync();
-            
-            var responseDto = productFromDb.Adapt<Book, BookResponseDto>();
+
+            var responseDto = bookFromDb.Adapt<Book, BookResponseDto>();
             return responseDto;
         }
 
