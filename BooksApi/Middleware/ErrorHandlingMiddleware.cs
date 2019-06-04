@@ -5,7 +5,7 @@ using BooksApi.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace BooksApi.Middlewares
+namespace BooksApi.Middleware
 {
     public class ErrorHandlingMiddleware
     {
@@ -31,9 +31,14 @@ namespace BooksApi.Middlewares
         {
             var code = HttpStatusCode.InternalServerError;
 
-            if (ex is DuplicateBookException)
+            switch (ex)
             {
-                code = HttpStatusCode.BadRequest;
+                case DuplicateBookException _:
+                    code = HttpStatusCode.BadRequest;
+                    break;
+                case BookNotFoundException _:
+                    code = HttpStatusCode.NotFound;
+                    break;
             }
 
             var result = JsonConvert.SerializeObject(new { error = ex.Message });

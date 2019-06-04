@@ -20,51 +20,31 @@ namespace BooksApi.Controllers
         [HttpGet]
         public async Task<ActionResult<QueryResult>> GetAllAsync([FromQuery] QueryRequest request)
         {
-            var responseDtos = await _booksService.GetBooksAsync(request);
-
-            return responseDtos;
+            return await _booksService.GetBooksAsync(request);
         }
 
         [HttpGet("{bookId}")]
         public async Task<ActionResult<BookResponseDto>> GetAsync([FromRoute] Guid bookId)
         {
-            var responseDto = await _booksService.GetAsync(bookId);
-            if (responseDto == null)
-            {
-                return NotFound(bookId);
-            }
-
-            return responseDto;
+            return await _booksService.GetAsync(bookId);
         }
 
         [HttpPost]
         public async Task<ActionResult<BookResponseDto>> PostAsync([FromBody] BookRequestDto requestDto)
         {
-            var result = await _booksService.PostAsync(requestDto);
-
-            return result;
+            return await _booksService.PostAsync(requestDto);
         }
 
         [HttpPut("{bookId}")]
         public async Task<ActionResult<BookResponseDto>> PutAsync([FromRoute] Guid bookId, [FromBody] BookRequestDto requestDto)
         {
-            var result = await _booksService.PutAsync(bookId, requestDto);
-            if (result == null)
-            {
-                return NotFound(bookId);
-            }
-
-            return result;
+            return await _booksService.PutAsync(bookId, requestDto);
         }
 
         [HttpDelete("{bookId}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid bookId)
         {
-            var deleted = await _booksService.DeleteAsync(bookId);
-            if (!deleted)
-            {
-                return NotFound(bookId);
-            }
+            await _booksService.DeleteAsync(bookId);
 
             return Ok();
         }

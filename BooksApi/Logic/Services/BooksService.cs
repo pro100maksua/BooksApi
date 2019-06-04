@@ -35,6 +35,10 @@ namespace BooksApi.Logic.Services
         public async Task<BookResponseDto> GetAsync(Guid bookId)
         {
             var book = await _unitOfWork.BooksRepository.GetAsync(bookId);
+            if (book == null)
+            {
+                throw new BookNotFoundException(bookId); 
+            }
 
             var responseDto = book.Adapt<Book, BookResponseDto>();
             return responseDto;
@@ -59,17 +63,17 @@ namespace BooksApi.Logic.Services
 
         public async Task<BookResponseDto> PutAsync(Guid bookId, BookRequestDto requestDto)
         {
-            var bookExists = await _unitOfWork.BooksRepository
-                .AnyAsync(b => b.Title == requestDto.Title && b.Id != bookId);
-            if (bookExists)
-            {
-                throw new DuplicateBookException(requestDto.Title);
-            }
-
             var bookFromDb = await _unitOfWork.BooksRepository.GetAsync(bookId);
             if (bookFromDb == null)
             {
-                return null;
+                throw new BookNotFoundException(bookId);
+            }
+
+            var titleExists = await _unitOfWork.BooksRepository.AnyAsync(b =>
+                b.Title == requestDto.Title && b.Id != bookId);
+            if (titleExists)
+            {
+                throw new DuplicateBookException(requestDto.Title);
             }
 
             requestDto.Adapt(bookFromDb);
@@ -79,17 +83,15 @@ namespace BooksApi.Logic.Services
             return responseDto;
         }
 
-        public async Task<bool> DeleteAsync(Guid bookId)
+        public async Task DeleteAsync(Guid bookId)
         {
             var removed = await _unitOfWork.BooksRepository.RemoveAsync(bookId);
             if (!removed)
             {
-                return false;
+                throw new BookNotFoundException(bookId);
             }
 
             await _unitOfWork.SaveAsync();
-
-            return true;
         }
     }
 }

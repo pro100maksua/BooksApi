@@ -14,6 +14,6 @@ namespace BooksApi.Logic.Interfaces
 
         Task<BookResponseDto> PutAsync(Guid bookId, BookRequestDto requestDto);
         
-        Task<bool> DeleteAsync(Guid bookId);
+        Task DeleteAsync(Guid bookId);
     }
 }

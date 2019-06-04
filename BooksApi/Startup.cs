@@ -3,7 +3,7 @@ using BooksApi.Data.Interfaces;
 using BooksApi.Entities;
 using BooksApi.Logic.Interfaces;
 using BooksApi.Logic.Services;
-using BooksApi.Middlewares;
+using BooksApi.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
