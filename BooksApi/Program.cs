@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore;
+﻿using Books.Api.Helpers;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BooksApi
+namespace Books.Api
 {
     public class Program
     {

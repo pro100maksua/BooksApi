@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
-using BooksApi.Data.Interfaces;
-using BooksApi.Entities;
+using Books.Data.Entities;
+using Books.Data.Interfaces;
+using Books.Data.Repositories;
 
-namespace BooksApi.Data
+namespace Books.Data
 {
     public class UnitOfWork : IUnitOfWork
     {

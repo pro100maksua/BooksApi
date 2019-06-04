@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BooksApi.Dtos
+namespace Books.Logic.Dtos
 {
     public class QueryResult
     {

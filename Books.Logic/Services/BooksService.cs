@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
-using BooksApi.Data.Interfaces;
-using BooksApi.Dtos;
-using BooksApi.Entities;
-using BooksApi.Exceptions;
-using BooksApi.Logic.Interfaces;
+using Books.Data.Entities;
+using Books.Data.Interfaces;
+using Books.Logic.Dtos;
+using Books.Logic.Exceptions;
+using Books.Logic.Interfaces;
 using Mapster;
 
-namespace BooksApi.Logic.Services
+namespace Books.Logic.Services
 {
     public class BooksService : IBooksService
     {
@@ -37,7 +38,7 @@ namespace BooksApi.Logic.Services
             var book = await _unitOfWork.BooksRepository.GetAsync(bookId);
             if (book == null)
             {
-                throw new BookNotFoundException(bookId); 
+                throw new BookNotFoundException(bookId);
             }
 
             var responseDto = book.Adapt<Book, BookResponseDto>();

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using BooksApi.Data.Interfaces;
+using Books.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace BooksApi.Data
+namespace Books.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {

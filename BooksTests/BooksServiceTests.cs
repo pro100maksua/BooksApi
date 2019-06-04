@@ -2,16 +2,16 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using BooksApi.Data.Interfaces;
-using BooksApi.Dtos;
-using BooksApi.Entities;
-using BooksApi.Exceptions;
-using BooksApi.Logic.Interfaces;
-using BooksApi.Logic.Services;
+using Books.Data.Entities;
+using Books.Data.Interfaces;
+using Books.Logic.Dtos;
+using Books.Logic.Exceptions;
+using Books.Logic.Interfaces;
+using Books.Logic.Services;
 using Moq;
 using NUnit.Framework;
 
-namespace BooksTests
+namespace Books.Tests
 {
     [TestFixture]
     public class BooksServiceTests
@@ -51,8 +51,8 @@ namespace BooksTests
                 b.Id == book.Id &&
                 b.Title == book.Title &&
                 b.Author == book.Author));
-            _booksRepository.Verify(pr =>
-                pr.GetAllAsync(request.Skip, request.Take, It.IsAny<Expression<Func<Book, bool>>>()));
+            _booksRepository.Verify(br =>
+                br.GetAllAsync(request.Skip, request.Take, It.IsAny<Expression<Func<Book, bool>>>()));
         }
 
         [Test]

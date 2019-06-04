@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using BooksApi.Entities;
+using Books.Data.Entities;
 
-namespace BooksApi.Data.Interfaces
+namespace Books.Data.Interfaces
 {
     public interface IUnitOfWork
     {

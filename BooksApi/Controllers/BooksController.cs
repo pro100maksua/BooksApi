@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BooksApi.Dtos;
-using BooksApi.Logic.Interfaces;
+using Books.Logic.Dtos;
+using Books.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksApi.Controllers
+namespace Books.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

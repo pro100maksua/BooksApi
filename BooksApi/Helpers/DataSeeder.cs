@@ -1,14 +1,13 @@
 ﻿using System;
-using BooksApi.Data;
-using BooksApi.Entities;
+using Books.Data;
+using Books.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BooksApi
+namespace Books.Api.Helpers
 {
-    public class DataSeeder
+    public static class DataSeeder
     {
-
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>()))

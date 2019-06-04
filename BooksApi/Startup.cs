@@ -1,18 +1,19 @@
-﻿using BooksApi.Data;
-using BooksApi.Data.Interfaces;
-using BooksApi.Entities;
-using BooksApi.Logic.Interfaces;
-using BooksApi.Logic.Services;
-using BooksApi.Middleware;
+﻿using Books.Api.Middleware;
+using Books.Data;
+using Books.Data.Entities;
+using Books.Data.Interfaces;
+using Books.Data.Repositories;
+using Books.Logic.Interfaces;
+using Books.Logic.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using FluentValidation.AspNetCore;
-using Microsoft.EntityFrameworkCore;
 
-namespace BooksApi
+namespace Books.Api
 {
     public class Startup
     {

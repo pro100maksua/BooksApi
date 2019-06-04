@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using BooksApi.Controllers;
-using BooksApi.Dtos;
-using BooksApi.Logic.Interfaces;
+using Books.Api.Controllers;
+using Books.Logic.Dtos;
+using Books.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
-namespace BooksTests
+namespace Books.Tests
 {
     [TestFixture]
     public class BooksControllerTests

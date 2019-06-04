@@ -1,4 +1,4 @@
-﻿namespace BooksApi.Dtos
+﻿namespace Books.Logic.Dtos
 {
     public class QueryRequest
     {

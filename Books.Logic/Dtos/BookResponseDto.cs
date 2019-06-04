@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BooksApi.Entities
+namespace Books.Logic.Dtos
 {
-    public class Book
+    public class BookResponseDto
     {
         public Guid Id { get; set; }
 

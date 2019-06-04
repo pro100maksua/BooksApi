@@ -1,7 +1,7 @@
-﻿using BooksApi.Dtos;
+﻿using Books.Logic.Dtos;
 using FluentValidation;
 
-namespace BooksApi.Validators
+namespace Books.Api.Validators
 {
     public class QueryRequestValidator : AbstractValidator<QueryRequest>
     {

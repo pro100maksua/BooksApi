@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using BooksApi.Exceptions;
+using Books.Logic.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace BooksApi.Middleware
+namespace Books.Api.Middleware
 {
     public class ErrorHandlingMiddleware
     {

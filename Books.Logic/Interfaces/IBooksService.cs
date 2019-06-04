@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BooksApi.Dtos;
+using Books.Logic.Dtos;
 
-namespace BooksApi.Logic.Interfaces
+namespace Books.Logic.Interfaces
 {
     public interface IBooksService
     {
